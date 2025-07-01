@@ -1,5 +1,5 @@
 model_name=CPTransformer
-dataset=MIX_large # MIX_large
+dataset=Tongji # MIX_large
 train_epochs=100
 early_cycle_threshold=100
 learning_rate=0.00005
@@ -16,18 +16,18 @@ d_model=128
 d_ff=256
 dropout=0
 charge_discharge_length=300
-patience=5 # Eearly stopping patience
+patience=5 # Early stopping patience
 lradj=constant
 loss=MSE
 seed=2021
 
-checkpoints=/path/to/your/saving/folder # the save path of checkpoints
+checkpoints=checkpoints # the save path of checkpoints
 data=Dataset_original
 root_path=./dataset
 comment='CPTransformer'
 task_name=classification
 
-CUDA_VISIBLE_DEVICES=0,1 accelerate launch --multi_gpu  --num_processes $num_process --main_process_port $master_port run_main.py \
+CUDA_VISIBLE_DEVICES=0 accelerate launch --num_processes $num_process --main_process_port $master_port run_main.py \
   --task_name $task_name \
   --data $data \
   --is_training 1 \
@@ -63,5 +63,5 @@ CUDA_VISIBLE_DEVICES=0,1 accelerate launch --multi_gpu  --num_processes $num_pro
   --dropout $dropout \
   --lradj $lradj \
   --loss $loss \
-  --checkpoints $checkpoints 
+  --checkpoints $checkpoints \
 

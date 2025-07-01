@@ -338,6 +338,18 @@ for ii in range(args.itr):
         total_seen_number_of_cycles = np.array(total_seen_number_of_cycles)
         total_preds = np.array(total_preds)
 
+        import pandas as pd
+
+        # Save predictions and labels for plotting
+        results_df = pd.DataFrame({
+            'cycle': np.arange(len(total_preds)),
+            'prediction': total_preds,
+            'ground_truth': total_references
+        })
+        results_df.to_csv(f'{args_path}/predictions_vs_truth.csv', index=False)
+        print(f'Saved predictions to {args_path}/predictions_vs_truth.csv')
+
+
         relative_error = abs(total_preds - total_references) / total_references
         hit_num = sum(relative_error<=alpha)
         alpha_acc = hit_num / len(total_references) * 100
